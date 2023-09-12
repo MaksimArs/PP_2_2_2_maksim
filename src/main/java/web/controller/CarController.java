@@ -13,13 +13,7 @@ import web.service.CarService;
 public class CarController {
     @Autowired
     CarService carService;
-//       /cars/  => /cars
-    /*@GetMapping("/")
-    public String getAllCars(Model model) {
-        model.addAttribute("something", "Cars");
-        model.addAttribute("cars", carService.getAllCars());
-        return "cars";
-    }*/
+
 
     @GetMapping
     public String getCars(@RequestParam(required = false, name = "count") Integer a, Model model) {

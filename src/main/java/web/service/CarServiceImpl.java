@@ -1,6 +1,7 @@
 package web.service;
 
 import org.springframework.stereotype.Component;
+import web.DAO.CarDAO;
 import web.model.Car;
 
 import java.util.ArrayList;
@@ -8,35 +9,32 @@ import java.util.List;
 @Component
 public class CarServiceImpl implements CarService{
 
-    private List<Car> cars;
-    {
-        cars = new ArrayList<>();
-        cars.add(new Car("type1", "model1", "Red"));
-        cars.add(new Car("type2", "model2", "Black"));
-        cars.add(new Car("type3", "model3", "White"));
-        cars.add(new Car("type4", "model4", "Orange"));
-        cars.add(new Car("type5", "model5", "Green"));
+
+    private final CarDAO carDAO;
+
+    public CarServiceImpl(CarDAO carDAO) {
+        this.carDAO = carDAO;
     }
 
     @Override
     public List<Car> getCars(int number) {
-        if(number > cars.size()) {
+        if(number > carDAO.getAllCars().size()) {
             List<Car> newCars = new ArrayList<>();
-            for(int a = 0; a < cars.size(); a++) {
-                newCars.add(cars.get(a));
+            for(int a = 0; a < carDAO.getAllCars().size(); a++) {
+                newCars.add(carDAO.getAllCars().get(a));
             }
             return newCars;
         }
 
         List<Car> newCars = new ArrayList<>();
         for(int a = 0; a < number; a++) {
-            newCars.add(cars.get(a));
+            newCars.add(carDAO.getAllCars().get(a));
         }
         return newCars;
     }
 
     @Override
     public List<Car> getAllCars() {
-        return cars;
+        return carDAO.getAllCars();
     }
 }
